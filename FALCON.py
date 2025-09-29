@@ -1913,6 +1913,33 @@ if __name__ == "__main__":
         # You should have your bot account details in accs.txt
         # This part is just for a direct run example.
         # Ensure accs.txt is configured correctly for the main loop to work.
+
+
+
+		# --- BEGIN HEARTBEAT SNIPPET ---
+import threading, time, json, os
+from pathlib import Path
+
+_HEARTBEAT_FILE = Path("bot_heartbeat.json")     # একই ফোল্ডারে ফাইল তৈরি হবে
+_HEARTBEAT_INTERVAL = 5.0  # seconds
+
+def _heartbeat_loop():
+    while True:
+        data = {
+            "alive": True,
+            "timestamp": time.time()
+        }
+        try:
+            with _HEARTBEAT_FILE.open("w", encoding="utf-8") as f:
+                json.dump(data, f)
+        except Exception:
+            pass
+        time.sleep(_HEARTBEAT_INTERVAL)
+
+t = threading.Thread(target=_heartbeat_loop, daemon=True)
+t.start()
+# --- END HEARTBEAT SNIPPET ---
+
         pass
     except Exception as e:
         logging.error(f"Error occurred during initialization: {e}")
