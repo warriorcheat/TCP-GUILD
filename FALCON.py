@@ -1909,7 +1909,3 @@ for thread in threads:
     thread.join()
     
 if __name__ == "__main__":
-    try:
-        # You should have your bot account details in accs.txt
-        # This part is just for a direct run example.
-        # Ensure accs.txt is configured correctly for the main loop to work.
